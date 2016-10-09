@@ -24,6 +24,7 @@ def main():
     try:
         paths.SHEEP_ROOT_PATH = modulePath()
         setPaths()
+        print "success"
     except Exception:
         print "出错了"
 

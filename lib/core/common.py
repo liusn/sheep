@@ -2,11 +2,56 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import re
 import time
 import logging
 from lib.core.data import paths, logger, conf
 from lib.core.exception import SheepMissingPrivileges
+from lib.core.settings import BANNER
+from lib.core.log import LOGGER_HANDLER
+from lib.core.convert import stdoutencode
+from thirdparty.termcolor.termcolor import colored
+
+
+def banner():
+    """
+    Function prints sheep banner with its version
+    :return:
+    """
+    _ = BANNER
+    if not getattr(LOGGER_HANDLER, "is_tty", False):
+        _ = re.sub("\033.+?m", "", _)
+    dataToStdout(_)
+
+
+def dataToStdout(data, bold=False):
+    """
+    Writes text to the stdout (console) stream
+    """
+    if isinstance(data, unicode):
+        message = stdoutencode(data)
+    else:
+        message = data
+
+    sys.stdout.write(setColor(message, bold))
+
+    try:
+        sys.stdout.flush()
+    except IOError:
+        pass
+
+    return
+
+
+def setColor(message, bold=False):
+    retVal = message
+
+    if message and getattr(LOGGER_HANDLER, "is_tty", False):  # colorizing handler
+        if bold:
+            retVal = colored(message, color=None, on_color=None, attrs=("bold",))
+
+    return retVal
 
 
 def setPaths():
@@ -30,7 +75,7 @@ def setPaths():
     paths.LAGRE_WEAK_PASS = os.path.join(paths.DATA_PATH, "pass1000.txt")
     paths.UA_LIST_PATH = os.path.join(paths.DATA_PATH, "user-agents.txt")
 
-    if os.path.isfile(paths.CONFIG_PATH) and os.path.isfile(paths.WEAK_PASS) and os.path.isfile(paths.LAGRE_WEAK_PASS) and os.path.isfile(paths.UA_LIST_PATH):
+    if os.path.isfile(paths.WEAK_PASS) and os.path.isfile(paths.LAGRE_WEAK_PASS) and os.path.isfile(paths.UA_LIST_PATH):
         pass
     else:
         msg = 'Some files missing, it may cause an issue.\n'
