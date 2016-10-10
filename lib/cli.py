@@ -4,8 +4,8 @@
 import os
 import sys
 from lib.core.data import paths, conf, logger
-from lib.core.common import getUnicode
-from lib.core.common import setPaths
+from lib.core.common import getUnicode, setPaths
+from lib.consoles.mainCmd import mainCmd
 
 def modulePath():
     """
@@ -19,11 +19,11 @@ def main():
     Main function of sheep when running from command line.
     :return:
     """
-    print os.path.dirname(os.path.realpath(__file__))
-    print os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     try:
         paths.SHEEP_ROOT_PATH = modulePath()
         setPaths()
+        mainC = mainCmd()
+        mainC.cmdloop()
         print "success"
     except Exception:
         print "出错了"
