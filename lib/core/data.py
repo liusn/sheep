@@ -10,3 +10,4 @@ paths = AttribDict()
 
 conf = AttribDict()
 
+scr = AttribDict()

@@ -4,8 +4,9 @@
 import os
 import sys
 from lib.core.data import paths, conf, logger
-from lib.core.common import getUnicode, setPaths
+from lib.core.common import getUnicode, setPaths, systemQuit
 from lib.consoles.mainCmd import mainCmd
+from lib.core.enums import EXIT_STATUS
 
 def modulePath():
     """
@@ -24,9 +25,10 @@ def main():
         setPaths()
         mainC = mainCmd()
         mainC.cmdloop()
-        print "success"
+    except KeyboardInterrupt:
+        systemQuit(EXIT_STATUS.USER_QUIT)
     except Exception:
-        print "出错了"
+        systemQuit(EXIT_STATUS.ERROR_EXIT)
 
 
 if __name__ == "__main__":

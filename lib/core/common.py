@@ -6,12 +6,30 @@ import sys
 import re
 import time
 import logging
-from lib.core.data import paths, logger, conf
-from lib.core.exception import SheepMissingPrivileges
+from lib.core.data import paths, logger, conf, scr
+from lib.core.exception import SheepMissingPrivileges, SheepValueException
 from lib.core.settings import BANNER
 from lib.core.log import LOGGER_HANDLER
 from lib.core.convert import stdoutencode
 from thirdparty.termcolor.termcolor import colored
+from lib.core.enums import EXIT_STATUS
+
+
+def initScr():
+    """Init scr"""
+    scr.all = {}
+
+
+def systemQuit(status = EXIT_STATUS.SYSETM_EXIT):
+    if status == EXIT_STATUS.SYSETM_EXIT:
+        logger.info('System exit.')
+    elif status == EXIT_STATUS.ERROR_EXIT:
+        logger.error('System exit')
+    elif status == EXIT_STATUS.USER_QUIT:
+        logger.error('User quit.')
+    else:
+        raise  SheepValueException('Invalid status code: %s' % str(status))
+    sys.exit(0)
 
 
 def banner():
