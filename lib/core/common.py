@@ -6,6 +6,7 @@ import sys
 import re
 import time
 import logging
+import importlib
 from lib.core.data import paths, logger, conf, scr
 from lib.core.exception import SheepMissingPrivileges, SheepValueException
 from lib.core.settings import BANNER
@@ -15,9 +16,31 @@ from thirdparty.termcolor.termcolor import colored
 from lib.core.enums import EXIT_STATUS
 
 
+def importModule(module):
+    """
+    Improt a module
+    :param module:
+    :return:
+    """
+    if module == "":
+        logger.warning("ImportModel need a name!")
+        return
+    try:
+        mod = importlib.import_module(module)
+        readme = mod.readme
+        run = mod.run
+        defaultRun = mod.defaultRun
+        return mod
+    except Exception as e:
+        logger.error('Import module error. need readme, run, defaultRun')
+        return
+
+
+
 def initScr():
     """Init scr"""
     scr.all = {}
+    scr.allpath = {}
 
 
 def systemQuit(status = EXIT_STATUS.SYSETM_EXIT):
