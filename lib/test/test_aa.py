@@ -9,10 +9,7 @@ from thirdparty.prettytable.prettytable import PrettyTable
 
 
 test = importModule('script.test')
-print test.readme
-test.run(11)
-test.run(test.readme)
-test.defaultRun()
+print hasattr(test, 'readme2')
 
 x = PrettyTable()
 x.field_names = ["id", "ss"]

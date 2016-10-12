@@ -27,9 +27,6 @@ def importModule(module):
         return
     try:
         mod = importlib.import_module(module)
-        readme = mod.readme
-        run = mod.run
-        defaultRun = mod.defaultRun
         return mod
     except Exception as e:
         logger.error('Import module error. need readme, run, defaultRun')

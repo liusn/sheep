@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 readme = {
-    "target" : u"目标ip，或网址",
-    "theard" : u"线程数，默认为1",
-    "user" : u"用户名",
-    "pass" : u"密码"
+    "target" : u"attack target",
+    "thread" : u"Threading ",
+    "user" : u"username",
+    "pass" : u"password"
 }
 
 def run(arg = None):

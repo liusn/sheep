@@ -22,11 +22,9 @@ class useScriptCmd(baseCmd):
         self.module = module
         self.readme = module.readme
         self.run = module.run
-        self.defaultRun = module.defaultRun
         self.config = {}
         for key in self.readme:
             self.config[key] = None
-        print self.config
 
 
     def show_options(self):
@@ -50,4 +48,29 @@ class useScriptCmd(baseCmd):
             return
         else:
             self.show_options()
+
+
+    def do_set(self, line):
+        """Set script options. usage:set target=1.1.1.1"""
+        if line == "" or line.find('=') == -1:
+            print "usage:set target=1.1.1.1"
+            return
+        _ = line.split('=')
+        k = _[0].strip()
+        v = _[1].strip()
+        if self.config.has_key(k):
+            self.config[k] = v
+        else:
+            logger.warning("Without this configuration options. ps: show options")
+
+
+    def do_run(self, line):
+        """Run this script, usage: run"""
+        for k, v in self.config.items():
+            if v == None:
+                ch = "The %s has not been set. ps: set %s = ***" % (k, k)
+                logger.warning(ch)
+                return
+        result = self.run(self.config)
+
 

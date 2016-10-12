@@ -58,6 +58,18 @@ class scriptCmd(baseCmd):
             logger.warning("Import script dir error!")
 
 
+    def checkModule(self, module):
+        """Detection  module is correct"""
+        ok = 1
+        if not hasattr(module, 'readme'):
+            logger.info("Module is the lack of readme dict.")
+            ok = 0
+        if not hasattr(module, 'run'):
+            logger.info("Module is the lack of run function.")
+            ok = 0
+        return ok
+
+
     def do_use(self, line):
         """Select a script to use"""
         if line == "":
@@ -69,22 +81,16 @@ class scriptCmd(baseCmd):
                 logger.warning("Invalid ID!")
                 return
             modulepath = 'script.' + scr.all.get(id)
-            print "11"
             module = importModule(modulepath)
-            print "22"
-            print type(module)
-            Use = useScriptCmd(module)
-            Use.cmdloop()
+            if self.checkModule(module):
+                Use = useScriptCmd(module)
+                Use.cmdloop()
         except TypeError:
             logger.warning("Please select a script's ID.")
         except ValueError:
             logger.warning("Please select a script's ID.")
         except Exception:
             logger.error("Use error!")
-
-
-
-
 
 
     def do_list(self, line):
@@ -105,6 +111,3 @@ class scriptCmd(baseCmd):
         """
 
 
-if __name__ == "__main__":
-    test = useScriptCmd()
-    test.cmdloop()
