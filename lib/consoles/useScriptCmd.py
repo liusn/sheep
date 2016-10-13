@@ -14,11 +14,12 @@ from lib.core.enums import EXIT_STATUS
 
 class useScriptCmd(baseCmd):
     """UseScriptCmd consoles"""
-    def __init__(self, module = None):
+    def __init__(self, module = None, name = None):
         baseCmd.__init__(self)
         if IS_WIN:
             colorInit()
         self.shellPrompt = "sheep>script>use>"
+        self.name = name
         self.module = module
         self.readme = module.readme
         self.run = module.run
@@ -31,14 +32,13 @@ class useScriptCmd(baseCmd):
         """Show option by table"""
         id = 1
         table = PrettyTable()
+        print "            =====%s=====    " % self.name
         table.field_names = ["Id", "argName", "argValue", "description"]
         for k, v in self.readme.items():
             argValue= self.config[k]
             des =   getUnicode(v)
             table.add_row([id, k, argValue, v])
         print table
-        return
-
 
 
     def do_show(self, line):

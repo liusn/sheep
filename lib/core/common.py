@@ -29,7 +29,7 @@ def importModule(module):
         mod = importlib.import_module(module)
         return mod
     except Exception as e:
-        logger.error('Import module error. need readme, run, defaultRun')
+        logger.error('Import module error. %s' % e)
         return
 
 
@@ -100,10 +100,16 @@ def setPaths():
     root_path = paths.SHEEP_ROOT_PATH
     paths.DATA_PATH = os.path.join(root_path, "data")
     paths.SCRIPT_PATH = os.path.join(root_path, "script")
+    paths.SCRIPT_POC_PATH = os.path.join(paths.SCRIPT_PATH, "pocs")
+    paths.SCRIPT_EXPLOIT_PATH = os.path.join(paths.SCRIPT_PATH, "exploits")
     paths.OUTPUT_PATH = os.path.join(root_path, "output")
     paths.CONFIG_PATH = os.path.join(root_path, "sheep.conf")
     if not os.path.exists(paths.SCRIPT_PATH):
         os.mkdir(paths.SCRIPT_PATH)
+    if not os.path.exists(paths.SCRIPT_POC_PATH):
+        os.mkdir(paths.SCRIPT_POC_PATH)
+    if not os.path.exists(paths.SCRIPT_EXPLOIT_PATH):
+        os.mkdir(paths.SCRIPT_EXPLOIT_PATH)
     if not os.path.exists(paths.OUTPUT_PATH):
         os.mkdir(paths.OUTPUT_PATH)
     if not os.path.exists(paths.DATA_PATH):
