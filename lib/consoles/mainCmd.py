@@ -17,6 +17,7 @@ class mainCmd(baseCmd):
         banner()
 
     def do_script(self, line):
+        """Execute pocs and exploits script"""
         scrCmd = scriptCmd()
         scrCmd.cmdloop()
 

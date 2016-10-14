@@ -14,10 +14,11 @@ def run(arg = None):
         return
     for k, v in arg.items():
         print "k = %s, v = %s" % (k, v)
-    print "Running..."
+    print "poctest Running..."
     print
     print "End!"
+    return True
 
 def poc(target = "1.1.1.1"):
-    return True
+    return False
 

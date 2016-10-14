@@ -9,6 +9,10 @@ class SheepConnectionException(Exception):
     pass
 
 
+class SheepThreadException(SheepBaseException):
+    pass
+
+
 class SheepDataException(SheepBaseException):
     pass
 

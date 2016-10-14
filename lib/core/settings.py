@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import subprocess
+import sys
+
+
+PYVERSION = sys.version.split()[0]
 
 IS_WIN = subprocess.mswindows
 

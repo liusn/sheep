@@ -6,6 +6,7 @@ import sys
 import string
 from lib.consoles.baseCmd import baseCmd
 from lib.consoles.useScriptCmd import useScriptCmd
+from lib.consoles.runPocsCmd import runPocsCmd
 from lib.core.settings import IS_WIN
 from thirdparty.colorama.initialise import init as colorInit
 from lib.core.data import scr, logger, paths
@@ -31,9 +32,10 @@ class scriptCmd(baseCmd):
         self.exploitSum = self.current_scrid - self.pocSum - 1
 
 
-    def do_runPocs(self, line):
+    def do_pocs(self, line):
         """Run multiple scripts """
-        pass
+        poc = runPocsCmd(self.scr.pocs)
+        poc.cmdloop()
 
 
 

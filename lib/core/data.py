@@ -11,3 +11,5 @@ paths = AttribDict()
 conf = AttribDict()
 
 scr = AttribDict()
+
+th = AttribDict()

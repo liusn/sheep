@@ -24,13 +24,13 @@ def importModule(module):
     """
     if module == "":
         logger.warning("ImportModel need a name!")
-        return
+        return False
     try:
         mod = importlib.import_module(module)
         return mod
     except Exception as e:
         logger.error('Import module error. %s' % e)
-        return
+        return False
 
 
 
