@@ -23,7 +23,6 @@ class DocumentStyle(Style):
     }
     styles.update(DefaultStyle.styles)
 
-IDENTCHARS = string.ascii_letters + string.digits + '_'
 
 class baseCmd(Cmd):
     """A simple framework for writing line-oriented command interpreters.
@@ -37,18 +36,6 @@ class baseCmd(Cmd):
     in order to inherit Cmd's methods and encapsulate action methods.
 
     """
-    shellPrompt = "sheep>"
-    identchars = IDENTCHARS
-    ruler = '='
-    lastcmd = ''
-    intro = None
-    doc_leader = ""
-    doc_header = "Documented commands (type help <topic>):"
-    misc_header = "Miscellaneous help topics:"
-    undoc_header = "Undocumented commands:"
-    nohelp = "*** No help on %s"
-    use_rawinput = 1
-    hint = WordCompleter(['help', 'quit' ], ignore_case=True)
 
     def __init__(self, completekey='tab', stdin=None, stdout=None):
         """Instantiate a line-oriented interpreter framework.
@@ -62,8 +49,11 @@ class baseCmd(Cmd):
 
         """
         Cmd.__init__(self)
+        self.do_help.__func__.__doc__ = "Show help menu"
+        self.shellPrompt = "sheep>"
 
     def do_q(self,line):
+        """Quit!"""
         return True
 
     def cmdloop(self, intro=None):
@@ -313,7 +303,10 @@ class baseCmd(Cmd):
             self.stdout.write("%s\n"%str(header))
             if self.ruler:
                 self.stdout.write("%s\n"%str(self.ruler * len(header)))
-            self.columnize(cmds, maxcol-1)
+            for cmd in cmds:
+                help_msg = getattr(self,"do_{}".format(cmd)).__doc__
+                self.stdout.write("{:<16}".format(cmd))
+                self.stdout.write("%s\n" % help_msg)
             self.stdout.write("\n")
 
     def columnize(self, list, displaywidth=80):

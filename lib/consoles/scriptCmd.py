@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
 import sys
 import string
 from lib.consoles.baseCmd import baseCmd
@@ -32,11 +33,39 @@ class scriptCmd(baseCmd):
         self.exploitSum = self.current_scrid - self.pocSum - 1
 
 
+    def fuzzyFinder(self, input):
+        """Fuzzy find"""
+        results = {}
+        input = str(input) if not isinstance(input, str) else input
+#        pattern = '.*?'.join(map(re.escape, input))
+        regex = re.compile(input, re.I)
+        for k, v in self.scr.pocs.items():
+            r = regex.search(v)
+            if r:
+                results.update({k:v})
+        for k, v in self.scr.exploits.items():
+            r = regex.search(v)
+            if r:
+                results.update({k: v})
+        return results
+
+
+    def do_search(self, line):
+        """Search script by name"""
+        res = self.fuzzyFinder(line)
+        logger.info("Search result:")
+        msg_format = "   {:>12}  {:<32}  "
+        print
+        print(msg_format.format('SCR-ID', 'SCR_NAME'))
+        print(msg_format.format('======', '========'))
+        for i in res.items():
+            print(msg_format.format(*i))
+
+
     def do_pocs(self, line):
         """Run multiple scripts """
         poc = runPocsCmd(self.scr.pocs)
         poc.cmdloop()
-
 
 
     def import_script(self, scriptFile, store):
@@ -56,7 +85,6 @@ class scriptCmd(baseCmd):
     def import_script_dir(self, scriptDir, store):
         """Import  scripts from a directory"""
         try:
-
             if scriptDir and os.path.isdir(scriptDir):
                 for sname in os.listdir(scriptDir):
                     sname = os.path.join(scriptDir, sname)
@@ -113,7 +141,7 @@ class scriptCmd(baseCmd):
         """Show all available scripts"""
         msg_format = "   {:>12}  {:<32}  "
         print
-        print(msg_format.format('POC-ID', 'SCR_PATH'))
+        print(msg_format.format('POC-ID', 'SCR_NAME'))
         print(msg_format.format('======', '========'))
         for i in scr.pocs.items():
             print(msg_format.format(*i))
