@@ -113,7 +113,6 @@ class baseCmd(Cmd):
     def precmd(self, line):
         """Hook method executed just before the command line is
         interpreted, but after the input prompt is generated and issued.
-
         """
         return line
 
@@ -300,9 +299,9 @@ class baseCmd(Cmd):
 
     def print_topics(self, header, cmds, cmdlen, maxcol):
         if cmds:
-            self.stdout.write("%s\n"%str(header))
+            self.stdout.write("\033[01;32m%s\033[0m\n"%str(header))
             if self.ruler:
-                self.stdout.write("%s\n"%str(self.ruler * len(header)))
+                self.stdout.write("\033[01;33m%s\033[0m\n"%str(self.ruler * len(header)))
             for cmd in cmds:
                 help_msg = getattr(self,"do_{}".format(cmd)).__doc__
                 self.stdout.write("{:<16}".format(cmd))

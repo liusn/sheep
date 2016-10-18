@@ -18,7 +18,7 @@ class useScriptCmd(baseCmd):
         baseCmd.__init__(self)
         if IS_WIN:
             colorInit()
-        self.shellPrompt = "sheep>script>use>"
+        self.shellPrompt = "\033[01;35msheep>script>use>\033[0m"
         self.name = name
         self.module = module
         self.readme = module.readme
@@ -32,7 +32,7 @@ class useScriptCmd(baseCmd):
         """Show option by table"""
         id = 1
         table = PrettyTable()
-        print "            =====%s=====    " % self.name
+        print "\033[01;33m            =====%s=====    \033[0m" % self.name
         table.field_names = ["Id", "argName", "argValue", "description"]
         for k, v in self.readme.items():
             argValue= self.config[k]

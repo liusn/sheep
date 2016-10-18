@@ -22,7 +22,7 @@ class runPocsCmd(baseCmd):
         baseCmd.__init__(self)
         if IS_WIN:
             colorInit()
-        self.shellPrompt = "sheep>script>runPocs>"
+        self.shellPrompt = "\033[01;35msheep>script>runPocs>\033[0m"
         self.allPocs = pocs
         self.targets = Queue.Queue()
         self.mixTargets = Queue.Queue()
@@ -156,9 +156,9 @@ class runPocsCmd(baseCmd):
         urlDec = "target url. usage: set url = www.baidu.com"
         threadDec = "Default thread id 10, usage: set threads = 10"
         table = PrettyTable()
-        print "          ---------------------------------------------"
-        print "          *******target(Choose one of the three)*******"
-        print "          ---------------------------------------------"
+        print "\033[01;33m          ---------------------------------------------\033[0m"
+        print "\033[01;32m          *******target(Choose one of the three)*******\033[0m"
+        print "\033[01;33m          ---------------------------------------------\033[0m"
         table.field_names = ["Id", "argName", "argValue", "description"]
         table.add_row([1, 'ip', self.ip, ipDec])
         table.add_row([2, 'file', self.file, fileDec])

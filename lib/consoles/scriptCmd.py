@@ -22,7 +22,7 @@ class scriptCmd(baseCmd):
         if IS_WIN:
             colorInit()
         baseCmd.__init__(self)
-        self.shellPrompt = "sheep>script>"
+        self.shellPrompt = "\033[01;35msheep>script>\033[0m"
         self.current_scrid = 1
         self.scr = scr
         self.scr.pocs = {}
@@ -53,11 +53,15 @@ class scriptCmd(baseCmd):
     def do_search(self, line):
         """Search script by name"""
         res = self.fuzzyFinder(line)
+        if res == {}:
+            logger.warning('No find!')
+            return
         logger.info("Search result:")
-        msg_format = "   {:>12}  {:<32}  "
+        msg_format = "   {:>13}  {:<33}  "
+        msgTop_format = "   {:>25}  {:<60}  "
         print
-        print(msg_format.format('SCR-ID', 'SCR_NAME'))
-        print(msg_format.format('======', '========'))
+        print(msgTop_format.format('\033[01;32mSCR-ID\033[0m', '\033[01;32mSCR_NAME\033[0m'))
+        print(msgTop_format.format('\033[01;33m======\033[0m', '\033[01;33m========\033[0m'))
         for i in res.items():
             print(msg_format.format(*i))
 
@@ -139,15 +143,16 @@ class scriptCmd(baseCmd):
 
     def do_list(self, line):
         """Show all available scripts"""
-        msg_format = "   {:>12}  {:<32}  "
+        msg_format = "   {:>13}  {:<33}  "
+        msgTop_format = "   {:>25}  {:<60}  "
         print
-        print(msg_format.format('POC-ID', 'SCR_NAME'))
-        print(msg_format.format('======', '========'))
+        print(msgTop_format.format('\033[01;32mPOC-ID\033[0m', '\033[01;32mSCR_NAME\033[0m'))
+        print(msgTop_format.format('\033[01;33m======\033[0m', '\033[01;33m========\033[0m'))
         for i in scr.pocs.items():
             print(msg_format.format(*i))
         print
-        print(msg_format.format('EXPLOIT-ID', 'SCR_NAME'))
-        print(msg_format.format('==========', '========'))
+        print(msgTop_format.format('\033[01;32mEXPLOIT-ID\033[0m', '\033[01;32mSCR_NAME\033[0m'))
+        print(msgTop_format.format('\033[01;33m==========\033[0m', '\033[01;33m========\033[0m'))
         for i in self.scr.exploits.items():
             print(msg_format.format(*i))
         print

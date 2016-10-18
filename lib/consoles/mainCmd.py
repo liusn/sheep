@@ -13,7 +13,7 @@ class mainCmd(baseCmd):
         if IS_WIN:
             colorInit()
         baseCmd.__init__(self)
-        self.shellPrompt = "sheep>"
+        self.shellPrompt = "\033[01;35msheep>\033[0m"
         banner()
 
     def do_script(self, line):
