@@ -1,27 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-import string
 from cmd import Cmd
-from prompt_toolkit import AbortAction, prompt
-from prompt_toolkit.contrib.completers import WordCompleter
-from prompt_toolkit.history import InMemoryHistory
-
-from pygments.style import Style
-from pygments.styles.default import DefaultStyle
-from pygments.token import Token
-
-
-
-class DocumentStyle(Style):
-    styles = {
-        Token.Menu.Completions.Completion.Current: 'bg:#00aaaa #000000',
-        Token.Menu.Completions.Completion: 'bg:#008888 #ffffff',
-        Token.Menu.Completions.ProgressButton: 'bg:#003333',
-        Token.Menu.Completions.ProgressBar: 'bg:#00aaaa',
-    }
-    styles.update(DefaultStyle.styles)
 
 
 class baseCmd(Cmd):
