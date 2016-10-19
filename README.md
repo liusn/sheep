@@ -11,15 +11,15 @@ Sheep是一个开源的交互式的渗透测试框架，采用类似Metasploit F
 
 #### 用户手册
 
-1. [快速开始](https://github.com/liusn/sheep/wiki/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B) 
+* [快速开始](https://github.com/liusn/sheep/wiki/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B) 
 
-2. [脚本的编写及使用](https://github.com/liusn/sheep/wiki/%E8%84%9A%E6%9C%AC%E7%9A%84%E7%BC%96%E5%86%99%E5%8F%8A%E4%BD%BF%E7%94%A8)
+* [脚本的编写及使用](https://github.com/liusn/sheep/wiki/%E8%84%9A%E6%9C%AC%E7%9A%84%E7%BC%96%E5%86%99%E5%8F%8A%E4%BD%BF%E7%94%A8)
 
 #### 其他
 
-1. [问题反馈](https://github.com/liusn/sheep/issues/new)
+* [问题反馈](https://github.com/liusn/sheep/issues/new)
 
-2. [版权声明](https://github.com/liusn/sheep/blob/master/doc/LICENSE) 
+* [版权声明](https://github.com/liusn/sheep/blob/master/doc/LICENSE) 
 
 
 
