@@ -3,7 +3,6 @@
 
 import time
 import threading
-import traceback
 from thread import error as threadError
 from lib.core.data import th, logger
 from lib.core.exception import SheepThreadException, SheepValueException, SheepConnectionException
@@ -70,7 +69,7 @@ def runThreads(numThreads, threadFunction, forwardException=True, startThreadMsg
         th.threadException = True
         logger.error('thread %s: %s' % (threading.currentThread().getName(), errMsg))
 
-    except:
+    except Exception, errMsg:
         th.threadException = True
         logger.error("thread %s: %s" % (threading.currentThread().getName(), errMsg))
 #        traceback.print_exc()

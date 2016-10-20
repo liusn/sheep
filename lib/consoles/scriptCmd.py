@@ -3,15 +3,13 @@
 
 import os
 import re
-import sys
-import string
 from lib.consoles.baseCmd import baseCmd
 from lib.consoles.useScriptCmd import useScriptCmd
 from lib.consoles.runPocsCmd import runPocsCmd
 from lib.core.settings import IS_WIN
 from thirdparty.colorama.initialise import init as colorInit
 from lib.core.data import scr, logger, paths
-from lib.core.common import initScr, systemQuit, importModule
+from lib.core.common import systemQuit, importModule
 from lib.core.enums import EXIT_STATUS
 
 

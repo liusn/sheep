@@ -3,7 +3,7 @@
 
 import os
 import sys
-from lib.core.data import paths, conf, logger
+from lib.core.data import paths
 from lib.core.common import getUnicode, setPaths, systemQuit
 from lib.consoles.mainCmd import mainCmd
 from lib.core.enums import EXIT_STATUS

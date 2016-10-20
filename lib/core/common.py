@@ -4,12 +4,11 @@
 import os
 import sys
 import re
-import time
-import logging
+import unicodedata
 import importlib
 from lib.core.data import paths, logger, conf, scr
 from lib.core.exception import SheepMissingPrivileges, SheepValueException
-from lib.core.settings import BANNER
+from lib.core.settings import BANNER, UNICODE_ENCODING, INVALID_UNICODE_CHAR_FORMAT
 from lib.core.log import LOGGER_HANDLER
 from lib.core.convert import stdoutencode
 from thirdparty.termcolor.termcolor import colored
@@ -31,13 +30,6 @@ def importModule(module):
     except Exception as e:
         logger.error('Import module error. %s' % e)
         return False
-
-
-
-def initScr():
-    """Init scr"""
-    scr.all = {}
-    scr.allpath = {}
 
 
 def systemQuit(status = EXIT_STATUS.SYSETM_EXIT):
@@ -124,6 +116,18 @@ def setPaths():
     else:
         msg = 'Some files missing, it may cause an issue.\n'
         raise SheepMissingPrivileges(msg)
+
+
+def normalizeUnicode(value):
+    """
+    Does an ASCII normalization of unicode strings
+    Reference: http://www.peterbe.com/plog/unicode-to-ascii
+    >>> normalizeUnicode(u'\u0161u\u0107uraj')
+    'sucuraj'
+    """
+
+    return unicodedata.normalize('NFKD', value).encode('ascii', 'ignore') if isinstance(value, unicode) else value
+
 
 def isListLike(value):
     """

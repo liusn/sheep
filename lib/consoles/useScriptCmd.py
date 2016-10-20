@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-import sys
-import string
+
 from lib.consoles.baseCmd import baseCmd
 from lib.core.settings import IS_WIN
 from thirdparty.colorama.initialise import init as colorInit
 from thirdparty.prettytable.prettytable import PrettyTable
-from lib.core.data import scr, logger, paths
-from lib.core.common import systemQuit, getUnicode
-from lib.core.enums import EXIT_STATUS
+from lib.core.data import logger
+from lib.core.common import getUnicode
+
 
 class useScriptCmd(baseCmd):
     """UseScriptCmd consoles"""
@@ -55,7 +53,7 @@ class useScriptCmd(baseCmd):
         if line == "" or line.find('=') == -1:
             print "usage:set target=1.1.1.1"
             return
-        _ = line.split('=')
+        _ = line.split('=', 1)
         k = _[0].strip()
         v = _[1].strip()
         if self.config.has_key(k):

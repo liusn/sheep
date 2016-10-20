@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
-import string
+import time
 import Queue
 from lib.consoles.baseCmd import baseCmd
 from lib.core.settings import IS_WIN
@@ -101,6 +100,54 @@ class runPocsCmd(baseCmd):
             self.results.add(output)
 
 
+    def create_output_dir(self):
+        """Create the output directory!"""
+        pocsPath = os.path.join(paths.OUTPUT_PATH, 'pocs')
+        if not os.path.isdir(pocsPath):
+            try:
+                os.makedirs(pocsPath)
+                logger.info("Using '%s' as the pocs output directory" % pocsPath)
+            except Exception, e:
+                logger.warning("Create pocs output directory '%s' failed! %s" % (pocsPath, e))
+
+        #Create a directory by current time
+        today = time.strftime("%Y-%m-%d")
+        todayPath = os.path.join(pocsPath, today)
+        if not os.path.isdir(todayPath):
+            try:
+                os.makedirs(todayPath)
+                logger.info("Using '%s' as the pocs today output directory" % todayPath)
+            except Exception, e:
+                logger.warning("Create pocs today output directory '%s' failed! %s" % (todayPath, e))
+
+        return todayPath
+
+
+    def set_record_files(self):
+        """Create the output file!"""
+        todayPath = self.create_output_dir()
+        second = time.strftime("%Y-%m-%d-%H-%M-%S") + ".txt"
+        outputPath = os.path.join(todayPath, second)
+        msg_format = " {:>20}  {:^50}  {:<10} \n"
+        if not os.path.isfile(outputPath):
+            try:
+                with open(outputPath, "w") as f:
+                    f.write(msg_format.format("pocName", "target", "result"))
+                    f.write(msg_format.format("=======", "======", "======"))
+                    f.close()
+            except Exception, e:
+                logger.warning("Create %s file failed! %s" % (outputPath, e))
+
+        try:
+            with open(outputPath, "a+") as f:
+                for (pocName, target, result) in self.results:
+                    f.write(msg_format.format(pocName, target, result))
+                f.close()
+        except Exception, e:
+            logger.warning("Write this results error! %s" % e)
+        logger.info("Save the result in %s!" % outputPath)
+
+
     def do_run(self, line):
         """Run all pocs, usage: run"""
         if self.check_target():
@@ -126,6 +173,7 @@ class runPocsCmd(baseCmd):
             logger.info("Result:")
             print table
             print "success : %d / %d " % (sucNum, toNum)
+            self.set_record_files()
             self.results.clear()
 
 
@@ -134,7 +182,7 @@ class runPocsCmd(baseCmd):
         if line == "" or line.find('=') == -1:
             logger.warning("Invalid, usage:set ip=1.1.1.1")
             return
-        _ = line.split('=')
+        _ = line.split('=', 1)
         k = _[0].strip()
         v = _[1].strip()
         if k == 'ip':

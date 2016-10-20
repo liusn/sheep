@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import string
+
 from lib.consoles.baseCmd import baseCmd
 from lib.consoles.scriptCmd import scriptCmd
 from lib.core.settings import IS_WIN
 from thirdparty.colorama.initialise import init as colorInit
 from lib.core.common import banner
+
 
 class mainCmd(baseCmd):
     def __init__(self):
