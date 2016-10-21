@@ -28,7 +28,7 @@ class runPocsCmd(baseCmd):
         self.ip = None
         self.file = None
         self.url = None
-        self.threadsun = 10
+        self.threadsun = 1
         self.pocModule = {}
         self.results = oset()
 
@@ -96,7 +96,7 @@ class runPocsCmd(baseCmd):
             infoMsg = "Poc : %s    target : %s" % (pocName, tar)
             logger.info(infoMsg)
             result = module.poc(tar)
-            output = (pocName, tar, "success" if result == True else result)
+            output = (pocName, tar, "success" if result else "failed")
             self.results.add(output)
 
 
@@ -128,7 +128,7 @@ class runPocsCmd(baseCmd):
         todayPath = self.create_output_dir()
         second = time.strftime("%Y-%m-%d-%H-%M-%S") + ".txt"
         outputPath = os.path.join(todayPath, second)
-        msg_format = " {:>20}  {:^50}  {:<10} \n"
+        msg_format = " {:>25}  {:^50}  {:<10} \n"
         if not os.path.isfile(outputPath):
             try:
                 with open(outputPath, "w") as f:
@@ -192,7 +192,7 @@ class runPocsCmd(baseCmd):
         elif k == 'url':
             self.url = v
         elif k == 'threads':
-            self.threadsun = v
+            self.threadsun = int(v)
         else:
             logger.warning('Not this options, only ip, file, url, threads!')
 
@@ -202,7 +202,7 @@ class runPocsCmd(baseCmd):
         ipDec = "target ip/mask, usage: set = 127.0.0.1/24"
         fileDec = "target file, Please put the DATA directory.  ussge: set file = target.txt"
         urlDec = "target url. usage: set url = www.baidu.com"
-        threadDec = "Default thread id 10, usage: set threads = 10"
+        threadDec = "Default thread id 1, usage: set threads = 10"
         table = PrettyTable()
         print "\033[01;33m          ---------------------------------------------\033[0m"
         print "\033[01;32m          *******target(Choose one of the three)*******\033[0m"

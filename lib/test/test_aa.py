@@ -4,20 +4,16 @@
 import importlib
 import time
 import unicodedata
+import requests
 #from script.test import test
 from lib.core.settings import IS_WIN
 from lib.core.common import banner, importModule
 from thirdparty.prettytable.prettytable import PrettyTable
 
-readme = {
-    "target": "1.1.1.1",
-    "port": "22",
-    "user": "user.txt",
-    "pass": "pass.txt"
-}
+r = requests.get("http://github.com")
+r.encoding = 'utf-8'
+print r.url
+print r.cookies
+print r.history
 
-mod = importModule("script.exploits.bruteForce_mutith_ssh")
-
-
-mod.run(readme)
 
