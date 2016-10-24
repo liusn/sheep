@@ -4,7 +4,7 @@
 
 Sheep是一个开源的交互式的渗透测试框架，采用类似Metasploit Framework (MSF)的console模式的使用方式，给您友好的使用体验。  
 #### 功能
-* 但脚本自由设置脚本参数
+* 单脚本自由设置脚本参数
 * 多脚本多目标多线程的poc验证  
 
 ![banner](https://github.com/liusn/sheep/blob/master/doc/banner.png)
