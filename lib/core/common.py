@@ -96,6 +96,7 @@ def setPaths():
     paths.SCRIPT_EXPLOIT_PATH = os.path.join(paths.SCRIPT_PATH, "exploits")
     paths.OUTPUT_PATH = os.path.join(root_path, "output")
     paths.CONFIG_PATH = os.path.join(root_path, "sheep.conf")
+    paths.SUBDOMAIN_PATH = os.path.join(paths.DATA_PATH, "subdomain")
     if not os.path.exists(paths.SCRIPT_PATH):
         os.mkdir(paths.SCRIPT_PATH)
     if not os.path.exists(paths.SCRIPT_POC_PATH):
@@ -106,10 +107,17 @@ def setPaths():
         os.mkdir(paths.OUTPUT_PATH)
     if not os.path.exists(paths.DATA_PATH):
         os.mkdir(paths.DATA_PATH)
+    if not os.path.exists(paths.SUBDOMAIN_PATH):
+        os.mkdir(paths.SUBDOMAIN_PATH)
 
     paths.WEAK_PASS = os.path.join(paths.DATA_PATH, "pass100.txt")
     paths.LAGRE_WEAK_PASS = os.path.join(paths.DATA_PATH, "pass1000.txt")
     paths.UA_LIST_PATH = os.path.join(paths.DATA_PATH, "user-agents.txt")
+    paths.DNS_SERVERS = os.path.join(paths.SUBDOMAIN_PATH, "dns_servers.txt")
+    paths.NEXT_SUB = os.path.join(paths.SUBDOMAIN_PATH, "next_sub.txt")
+    paths.NEXT_SUB_FULL = os.path.join(paths.SUBDOMAIN_PATH, "next_sub_full.txt")
+    paths.SUBNAMES = os.path.join(paths.SUBDOMAIN_PATH, "subnames.txt")
+    paths.SUBNAMES_FULL = os.path.join(paths.SUBDOMAIN_PATH, "subnames_full.txt")
 
     if os.path.isfile(paths.WEAK_PASS) and os.path.isfile(paths.LAGRE_WEAK_PASS) and os.path.isfile(paths.UA_LIST_PATH):
         pass
