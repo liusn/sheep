@@ -102,10 +102,10 @@ class scriptCmd(baseCmd):
         """Detection  module is correct"""
         ok = 1
         if not hasattr(module, 'readme'):
-            logger.info("Module is the lack of readme dict.")
+            logger.warning("Module is the lack of readme dict.")
             ok = 0
         if not hasattr(module, 'run'):
-            logger.info("Module is the lack of run function.")
+            logger.warning("Module is the lack of run function.")
             ok = 0
         return ok
 
@@ -135,8 +135,8 @@ class scriptCmd(baseCmd):
             logger.warning("Please select a script's ID.")
         except ValueError:
             logger.warning("Please select a script's ID.")
-        except Exception:
-            logger.error("Use error!")
+        except Exception as e:
+            logger.error("Use error! %s" % e)
 
 
     def do_list(self, line):

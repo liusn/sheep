@@ -21,9 +21,16 @@ class useScriptCmd(baseCmd):
         self.module = module
         self.readme = module.readme
         self.run = module.run
+        if hasattr(module, 'defaults'):
+			self.defaults = module.defaults
+        else:
+			self.defaults = {}
         self.config = {}
         for key in self.readme:
-            self.config[key] = None
+            if self.defaults.has_key(key):
+				self.config[key] = self.defaults[key]
+            else:
+				self.config[key] = None
 
 
     def show_options(self):
